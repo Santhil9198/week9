@@ -1,0 +1,321 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Responsive Grid Dashboard</title>
+    <style>
+      :root {
+        color-scheme: light;
+        font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+        color: #172033;
+        background: #f3f6fb;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        min-width: 320px;
+        min-height: 100vh;
+        margin: 0;
+      }
+
+      .dashboard {
+        display: grid;
+        grid-template-areas:
+          "head head"
+          "side main"
+          "foot foot";
+        grid-template-columns: 230px minmax(0, 1fr);
+        grid-template-rows: auto 1fr auto;
+        gap: 20px;
+        width: min(1440px, 100%);
+        min-height: 100vh;
+        margin-inline: auto;
+        padding: 20px;
+      }
+
+      .panel {
+        border: 1px solid #e3e9f2;
+        border-radius: 18px;
+        background: #fff;
+        box-shadow: 0 8px 24px rgb(34 54 86 / 5%);
+      }
+
+      .head {
+        grid-area: head;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 16px;
+        padding: 18px 24px;
+      }
+
+      .brand {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        margin: 0;
+        font-size: 1.2rem;
+        letter-spacing: -0.03em;
+      }
+
+      .brand-mark {
+        display: grid;
+        width: 40px;
+        aspect-ratio: 1;
+        place-items: center;
+        border-radius: 12px;
+        background: #e9edff;
+        color: #4a56c7;
+      }
+
+      .head-note {
+        margin: 0;
+        color: #718096;
+        font-size: 0.9rem;
+      }
+
+      .side {
+        grid-area: side;
+        padding: 20px 14px;
+      }
+
+      .side h2 {
+        margin: 2px 10px 14px;
+        color: #8994a7;
+        font-size: 0.72rem;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+      }
+
+      .nav-list {
+        display: grid;
+        gap: 6px;
+        margin: 0;
+        padding: 0;
+        list-style: none;
+      }
+
+      .nav-link {
+        display: flex;
+        align-items: center;
+        gap: 11px;
+        padding: 11px 12px;
+        border-radius: 11px;
+        color: #596579;
+        text-decoration: none;
+      }
+
+      .nav-link[aria-current="page"] {
+        background: #eef0ff;
+        color: #4551bd;
+        font-weight: 650;
+      }
+
+      .nav-icon {
+        width: 22px;
+        text-align: center;
+      }
+
+      .main {
+        grid-area: main;
+        min-width: 0;
+        padding: 28px;
+      }
+
+      .intro {
+        margin-bottom: 24px;
+      }
+
+      .intro h1 {
+        margin: 0 0 7px;
+        font-size: clamp(1.55rem, 3vw, 2rem);
+        letter-spacing: -0.045em;
+      }
+
+      .intro p {
+        margin: 0;
+        color: #718096;
+        line-height: 1.6;
+      }
+
+      .cards {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+        gap: 16px;
+      }
+
+      .card {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        min-height: 112px;
+        padding: 18px;
+        border: 1px solid #e7ebf3;
+        border-radius: 15px;
+        background: linear-gradient(145deg, #fff, #fbfcff);
+      }
+
+      .card-icon {
+        display: grid;
+        flex: 0 0 46px;
+        width: 46px;
+        aspect-ratio: 1;
+        place-items: center;
+        border-radius: 14px;
+        background: var(--icon-bg);
+        font-size: 1.35rem;
+      }
+
+      .card-copy {
+        min-width: 0;
+      }
+
+      .card-copy h2 {
+        margin: 0 0 5px;
+        font-size: 0.95rem;
+      }
+
+      .card-copy p {
+        margin: 0;
+        color: #718096;
+        font-size: 0.82rem;
+        line-height: 1.4;
+      }
+
+      .foot {
+        grid-area: foot;
+        display: flex;
+        justify-content: space-between;
+        gap: 12px;
+        padding: 16px 22px;
+        color: #718096;
+        font-size: 0.82rem;
+      }
+
+      .foot p {
+        margin: 0;
+      }
+
+      @media (max-width: 700px) {
+        .dashboard {
+          grid-template-areas:
+            "head"
+            "side"
+            "main"
+            "foot";
+          grid-template-columns: minmax(0, 1fr);
+          gap: 12px;
+          padding: 12px;
+        }
+
+        .head,
+        .main {
+          padding: 20px;
+        }
+
+        .side {
+          padding: 12px;
+        }
+
+        .side h2 {
+          display: none;
+        }
+
+        .nav-list {
+          grid-template-columns: repeat(4, minmax(0, 1fr));
+        }
+
+        .nav-link {
+          justify-content: center;
+          gap: 6px;
+          padding: 10px 6px;
+          font-size: 0.8rem;
+        }
+      }
+
+      @media (max-width: 440px) {
+        .head-note {
+          display: none;
+        }
+
+        .nav-link {
+          flex-direction: column;
+          gap: 4px;
+          font-size: 0.72rem;
+        }
+
+        .main {
+          padding: 18px;
+        }
+
+        .foot {
+          flex-direction: column;
+          padding: 14px 18px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="dashboard">
+      <header class="head panel">
+        <p class="brand"><span class="brand-mark" aria-hidden="true">✦</span> Grid Studio</p>
+        <p class="head-note">A responsive layout, built with CSS Grid</p>
+      </header>
+
+      <aside class="side panel" aria-label="Main navigation">
+        <h2>Workspace</h2>
+        <nav>
+          <ul class="nav-list">
+            <li><a class="nav-link" href="#overview" aria-current="page"><span class="nav-icon" aria-hidden="true">▦</span>Overview</a></li>
+            <li><a class="nav-link" href="#projects"><span class="nav-icon" aria-hidden="true">◈</span>Projects</a></li>
+            <li><a class="nav-link" href="#activity"><span class="nav-icon" aria-hidden="true">◷</span>Activity</a></li>
+            <li><a class="nav-link" href="#settings"><span class="nav-icon" aria-hidden="true">⚙</span>Settings</a></li>
+          </ul>
+        </nav>
+      </aside>
+
+      <main class="main panel" id="overview">
+        <section class="intro" aria-labelledby="page-title">
+          <h1 id="page-title">Your workspace</h1>
+          <p>Resize the page to see the layout and cards adapt to the available space.</p>
+        </section>
+
+        <section class="cards" aria-label="Workspace shortcuts">
+          <article class="card" style="--icon-bg: #e9edff">
+            <span class="card-icon" aria-hidden="true">📁</span>
+            <div class="card-copy"><h2>Projects</h2><p>12 active projects</p></div>
+          </article>
+          <article class="card" style="--icon-bg: #e4f7ef">
+            <span class="card-icon" aria-hidden="true">✓</span>
+            <div class="card-copy"><h2>Tasks</h2><p>8 tasks to finish</p></div>
+          </article>
+          <article class="card" style="--icon-bg: #fff2df">
+            <span class="card-icon" aria-hidden="true">◷</span>
+            <div class="card-copy"><h2>Schedule</h2><p>3 upcoming events</p></div>
+          </article>
+          <article class="card" style="--icon-bg: #f8e9f4">
+            <span class="card-icon" aria-hidden="true">✉</span>
+            <div class="card-copy"><h2>Messages</h2><p>2 new updates</p></div>
+          </article>
+          <article class="card" style="--icon-bg: #e3f4fa">
+            <span class="card-icon" aria-hidden="true">♧</span>
+            <div class="card-copy"><h2>Team</h2><p>6 members online</p></div>
+          </article>
+          <article class="card" style="--icon-bg: #fff0ed">
+            <span class="card-icon" aria-hidden="true">↗</span>
+            <div class="card-copy"><h2>Reports</h2><p>View latest insights</p></div>
+          </article>
+        </section>
+      </main>
+
+      <footer class="foot panel">
+        <p>Grid Studio · Responsive layout demo</p>
+        <p>Built with Grid, Flexbox, and a little ✦</p>
+      </footer>
+    </div>
+  </body>
+</html>
